@@ -12,15 +12,16 @@
 | Production build | PASS | Next.js 16.3.5、Static Export、`out/`生成 |
 | Secret scanner自己検証 | PASS | 2026-09-14、`node scripts/secret-scan.mjs --self-test` |
 | 現行ソースSecret Scan | PASS | 2026-09-14、27テキスト・5バイナリ除外・候補0。公開候補を検査 |
-| Git履歴Secret Scan | 未確認 | scanner・コマンド・対象commitを記録 |
+| Git履歴Secret Scan | PASS | Gitleaks 8.30.0、`gitleaks git . --redact=100`、実装commit `be8346d`、検出0件 |
 | 依存監査 | PASS | `npm audit --omit=dev --audit-level=moderate`、脆弱性0件 |
 | ローカルのブラウザ操作 | PASS | Playwright / Chromium、14ケースすべて成功（1.2分）。実ダウンロードをCSV/XLSXとして再解析 |
+| Productionのブラウザ操作 | PASS | 本番URLに対して13ケース成功（25.7秒）。実ファイル取込・全列加工・Undo・レシピ・CSV/XLSX出力を確認 |
 | モバイル表示 | PASS | 390×844、Import・編集・比較・Exportにドキュメント横はみ出しなし |
-| Vercel Production公開 | 未確認 | https://excel-column-merge-split-tool.vercel.app |
-| GitHub Public公開 | 未確認 | https://github.com/shunsoco-stack/excel-column-merge-split-tool |
-| GitHub Actions | 未確認 | 実行URLと結果を記録 |
+| Vercel Production公開 | PASS | https://excel-column-merge-split-tool.vercel.app — READY / Production、匿名ブラウザで表示確認 |
+| GitHub Public公開 | PASS | https://github.com/shunsoco-stack/excel-column-merge-split-tool — API visibility=PUBLIC、匿名Web UIで表示確認 |
+| GitHub Actions | PASS | [Quality checks](https://github.com/shunsoco-stack/excel-column-merge-split-tool/actions/runs/34795311095)、実装commitの全ジョブ成功 |
 | スクリーンショット5枚 | PASS | 2026-09-14、実ブラウザ撮影。01/05は1440×1000、02/03/04は1440×1400 |
-| GitHub Web UIでREADME画像5枚確認 | 未確認 | Repository画面での表示確認後に更新 |
+| GitHub Web UIでREADME画像5枚確認 | PASS | 匿名でRepositoryのREADMEを開き、5枚の画像がcomplete=true・naturalWidth=1440を確認。Import・Merge・Exportをスクロール表示して目視確認 |
 
 ## ブラウザの確認シナリオ
 
@@ -48,8 +49,13 @@
 
 | 画像 | 内容 | 取得・表示確認 |
 | --- | --- | --- |
-| `docs/screenshots/01-import.png` | Import | 実画面を取得・目視確認済み |
-| `docs/screenshots/02-column-merge.png` | Column Merge | 実画面を取得・目視確認済み |
-| `docs/screenshots/03-column-split.png` | Column Split | 実画面を取得・目視確認済み |
-| `docs/screenshots/04-before-after.png` | Before / After | 実画面を取得・目視確認済み |
-| `docs/screenshots/05-export.png` | Export | 実画面を取得・目視確認済み |
+| `docs/screenshots/01-import.png` | Import | 実画面を取得・目視確認、GitHub READMEでも読み込み成功 |
+| `docs/screenshots/02-column-merge.png` | Column Merge | 実画面を取得・目視確認、GitHub READMEでも読み込み成功 |
+| `docs/screenshots/03-column-split.png` | Column Split | 実画面を取得・目視確認、GitHub READMEでも読み込み成功 |
+| `docs/screenshots/04-before-after.png` | Before / After | 実画面を取得・目視確認、GitHub READMEでも読み込み成功 |
+| `docs/screenshots/05-export.png` | Export | 実画面を取得・目視確認、GitHub READMEでも読み込み成功 |
+
+
+## 開発ルールの確認
+
+`DEVELOPMENT_RULES.md`は作業フォルダ、ドキュメント配下、各親ディレクトリで見つかりませんでした。提示された要件と`AGENTS.md`に従い、インストール済みNext.jsのローカルドキュメントを確認して実装しました。apple-design SkillをUI設計に使用しました。
