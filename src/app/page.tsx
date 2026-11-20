@@ -1,2 +1,8 @@
 import Workspace from "@/components/workspace";
-export default function Page() { return <Workspace />; }
+import { NinjaAdMaxSlot } from "@/components/ninja-admax-slot";
+export default function Page() { return (
+    <>
+      <Workspace />
+      <NinjaAdMaxSlot />
+    </>
+  ); }
